@@ -11,18 +11,18 @@
   keep_last_ask: true,
   only_magic: true,
   globals: {"locations":[""],"last_ask":{LAST_ASK}},
-  prompts: {
-    "":{"ask":" {locations} "},
-    "":{"ask":" {locations}  {from}  {to} ","context_size":3},
-    "":{"ask":"{last_ask}"}
-  },
-  magics: ["","","",""],
   magic_rules: {
-    "":[["","include","{locations}"]],
-    "":[["","exclude","{locations}"]],
+    "":[["","include","{locations}"]],
+    "":[["","exclude","{locations}"]],
     "":["*"],
     "":[["","set","from"],["","set","to"],"*"],
     "":[]
   },
+  prompts: {
+    "":{"ask":" {locations} "},
+    "":{"ask":" {locations}  {from}  {to} ","context_size":3},
+    "":{"ask":"{last_ask}"}
+  },
+  magics: ["","","",""],
   state_desc: "{locations}"
 }
