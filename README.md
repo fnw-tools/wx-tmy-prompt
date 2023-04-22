@@ -167,20 +167,22 @@ magic_rules 定义了 3 个触发词的规格，所以用户在公众号中输�
 
 另外，only_magic 配置项如果取 true，表示非触发词启动的问句将被忽略，启动与机器人聊天后，一问一答才可持续进行（如果中间停上一段时间会话将自动终止）。如果 only_magic 取 false 值，当前 room 表现得像聊天室，任何时候都可以启动一问一答交流，否则，only_magic 取 true，表示当前 room 更像一个工具集，不适合用作聊天。
 
-上面，fixed_messages 配置项用于在每次发出提问时，都前置插入若干次问答，比如：
+state_desc 配置用于描述 room 的在线状态，以便用户输入 "？" 查询时，打印信息能更明确的指示当前 room 所处的状态。上面代码将显示 "{深圳}"，提示当前用户所处的城市。
+
+上面，fixed_messages 配置用于在每次发出提问时，都前置插入若干次问答，比如：
 
 ```
   "fixed_messages": [{"ask":"question1...","answer":"answer1..."}]
 ```
 
-start_messages 配置项用于一个新会话启动，自动插入若干次问答，比如：
+start_messages 配置用于一个新会话刚启动时，自动插入若干次问答，比如：
 
 ```
   "start_messages": [{"ask":"question1...","answer":"answer1..."}]
 ```
 
-start_messages 相当于用于自动开启若干样例问答，随着聊天进展，后续问答会挤掉本样例，而 fixed_messages 是永不被挤占的设计。
+start_messages 用于自动出示若干样例（让 AI 快速代入场景），随着聊天进展，后续问答会挤掉这个样例，而 fixed_messages 样例则是永不被挤占的设计。
 
-state_desc 配置项用于描述 room 的在线状态，以便用户输入 "？" 查询时，打印信息能更明确的指示当前 room 所处的状态。上面代码将显示 "{深圳}"，提示当前用户所处的城市。
+说明，fixed_messages 与 start_messages 的功效与 prompt 有点接近，但 prompt 只定义提问句式，没给出一问一答的范例。
 
 &nbsp;
