@@ -153,7 +153,7 @@ magic_rules 定义了 3 个触发词的规格，所以用户在公众号中输�
   
   "keep_last_ask": true,
   "only_magic": true,
-  "globals": {"locations":["深圳"],"last_ask":{LAST_ASK}},
+  "globals": {"locations":["深圳"],"last_ask":"{LAST_ASK}"},
   "prompts": {
     "继续":{"ask":"{last_ask}"}
   },
