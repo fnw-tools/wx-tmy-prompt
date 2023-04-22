@@ -28,16 +28,16 @@
 
 ``` json
 {
-  room_ver: 1,
-  room_desc: "工具房",
+  "room_ver": 1,
+  "room_desc": "工具房",
   
-  magic_rules: {
+  "magic_rules": {
     "天气":["*"]
   },
-  prompts: {
+  "prompts": {
     "天气":{"ask":"帮我查一下当前 深圳 天气。"}
   },
-  magics: ["天气"]
+  "magics": ["天气"]
 }
 ```
 
