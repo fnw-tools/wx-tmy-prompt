@@ -62,7 +62,7 @@ magic_rules 定义聊天指令触发词，与机器人正常聊天时不会孤�
   "room_ver": 1,
   "room_desc": "工具房",
   
-  globals: {"locations":["深圳"]},
+  "globals": {"locations":["深圳"]},
   "magic_rules": {
     "关注":[["城市名","include","{locations}"]],
     "移除":[["城市名","exclude","{locations}"]],
@@ -71,13 +71,13 @@ magic_rules 定义聊天指令触发词，与机器人正常聊天时不会孤�
   "prompts": {
     "天气":{"ask":"帮我查一下 {locations} 的天气，简短些。"}
   },
-  magics: ["天气","关注","移除"]
+  "magics": ["天气","关注","移除"]
 }
 ```
 
 我们增加全局域名空间 globals 定义，如上 `globals["locations"]` 表达城市列表，在 magic_rules 中定义 "关注" 触发词用于往该列表添加城市名，定义 "移除" 用于将指定城市移出列表。
 
-magic_rules 中定义 3 个触发词的规格，所以用户在公众号中输入 "?" 时，系统将打印如下帮助信息：
+magic_rules 定义了 3 个触发词的规格，所以用户在公众号中输入 "?" 时，系统将打印如下帮助信息：
 
 ```
 当前指令：
@@ -105,11 +105,11 @@ magic_rules 中定义 3 个触发词的规格，所以用户在公众号中输�
   "room_ver": 1,
   "room_desc": "工具房",
   
-  context_size: 1,
-  max_token: 600,
-  system_role: "你是一个友善的助手",
+  "context_size": 1,
+  "max_token": 600,
+  "system_role": "你是一个友善的助手",
   
-  globals: {"locations":["深圳"]},
+  "globals": {"locations":["深圳"]},
   "magic_rules": {
     "关注":[["城市名","include","{locations}"]],
     "移除":[["城市名","exclude","{locations}"]],
@@ -120,7 +120,7 @@ magic_rules 中定义 3 个触发词的规格，所以用户在公众号中输�
     "天气":{"ask":"帮我查一下 {locations} 的天气，简短些。"},
     "地铁":{"ask":"我在关注 {locations} 城市，请问从 {from} 到 {to} 如何坐地铁？","context_size":3}
   },
-  magics: ["天气","地铁","关注","移除"]
+  "magics": ["天气","地铁","关注","移除"]
 }
 ```
 
@@ -132,7 +132,7 @@ magic_rules 中定义 3 个触发词的规格，所以用户在公众号中输�
 
 &nbsp;
 
-### 重复最近一次提问
+### 其它配置项
 
 接下来，我们补充介绍剩下的配置项。
 
@@ -140,23 +140,24 @@ magic_rules 中定义 3 个触发词的规格，所以用户在公众号中输�
 
 下面我们给出 room 定义例子（为阅读方便，我们没写全）。
 
-```
+``` json
 {
-  room_ver: 1,
-  room_desc: "工具房",
+  "room_ver": 1,
+  "room_desc": "工具房",
 
-  context_size: 1,
-  max_token: 600,
-  system_role: "你是一个友善的助手",
-  fixed_messages: [],
-  start_messages: [],
+  "context_size": 1,
+  "max_token": 600,
+  "system_role": "你是一个友善的助手",
+  "fixed_messages": [],
+  "start_messages": [],
   
-  keep_last_ask: true,
-  only_magic: true,
-  globals: {"locations":["深圳"],"last_ask":{LAST_ASK}},
-  prompts: {
+  "keep_last_ask": true,
+  "only_magic": true,
+  "globals": {"locations":["深圳"],"last_ask":{LAST_ASK}},
+  "prompts": {
     "继续":{"ask":"{last_ask}"}
-  }
+  },
+  "state_desc": "{locations}"
 }
 ```
 
@@ -169,15 +170,17 @@ magic_rules 中定义 3 个触发词的规格，所以用户在公众号中输�
 上面，fixed_messages 配置项用于在每次发出提问时，都前置插入若干次问答，比如：
 
 ```
-  fixed_messages: [{"ask":"question1...","answer":"answer1..."}]
+  "fixed_messages": [{"ask":"question1...","answer":"answer1..."}]
 ```
 
 start_messages 配置项用于一个新会话启动，自动插入若干次问答，比如：
 
 ```
-  start_messages: [{"ask":"question1...","answer":"answer1..."}]
+  "start_messages": [{"ask":"question1...","answer":"answer1..."}]
 ```
 
-start_messages 相当于用于自动开启若干样例问答，随着聊天进展，后续问答会挤掉这个样例，而 fixed_messages 则是永不被挤占的设计。
+start_messages 相当于用于自动开启若干样例问答，随着聊天进展，后续问答会挤掉本样例，而 fixed_messages 是永不被挤占的设计。
+
+state_desc 配置项用于描述 room 的在线状态，以便用户输入 "？" 查询时，打印信息能更明确的指示当前 room 所处的状态。上面代码将显示 "{深圳}"，提示当前用户所处的城市。
 
 &nbsp;
