@@ -1,0 +1,28 @@
+{
+  room_ver: 1,
+  room_desc: "",
+
+  context_size: 1,  
+  max_token: 600,
+  system_role: "",
+  fixed_messages: [],
+  start_messages: [],
+  
+  keep_last_ask: true,
+  only_magic: true,
+  globals: {"locations":[""],"last_ask":{LAST_ASK}},
+  prompts: {
+    "":{"ask":" {locations} "},
+    "":{"ask":" {locations}  {from}  {to} ","context_size":3},
+    "":{"ask":"{last_ask}"}
+  },
+  magics: ["","","",""],
+  magic_rules: {
+    "":[["","include","{locations}"]],
+    "":[["","exclude","{locations}"]],
+    "":["*"],
+    "":[["","set","from"],["","set","to"],"*"],
+    "":[]
+  },
+  state_desc: "{locations}"
+}
