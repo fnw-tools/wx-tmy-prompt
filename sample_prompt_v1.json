@@ -1,28 +1,22 @@
 {
   "room_ver": 1,
-  "room_desc": "",
-
-  "context_size": 1,
-  "max_token": 600,
-  "system_role": "",
-  "fixed_messages": [],
-  "start_messages": [],
+  "room_desc": "旅游服务",
+  
+  "system_role": "你是一个友善的导游",
+  "memory_deep": 1,
+  "temperature": 0.7,
   
   "keep_last_ask": true,
   "only_magic": true,
-  "globals": {"locations":[""],"last_ask":{LAST_ASK}},
+  "globals": {"where":"北京故宫"},
   "magic_rules": {
-    "":[["","include","{locations}"]],
-    "":[["","exclude","{locations}"]],
-    "":["*"],
-    "":[["","set","from"],["","set","to"],"*"],
-    "":[]
+    "介绍":[["景点名","set","{where}"], "*"],
+    "特产":["*"]
   },
   "prompts": {
-    "":{"ask":" {locations} "},
-    "":{"ask":" {locations}  {from}  {to} ","context_size":3},
-    "":{"ask":"{last_ask}"}
+    "介绍":{ "ask":"我提供一个景点名称，你将介绍该景点的特色、人文背景、历史典故，简短些。请介绍景点：{where} 。", "memory_deep":3, "temperature":0 },
+    "特产":{ "ask":"请问 {where} 景点有什么特产？", "memory_deep":5, "temperature":0}
   },
-  "magics": ["","","",""],
-  "state_desc": "{locations}"
+  "hint_magics": ["介绍","特产"]
+  "state_desc": "({where})"
 }
