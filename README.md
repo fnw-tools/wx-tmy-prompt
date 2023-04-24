@@ -176,11 +176,11 @@ chatGPT 还是边聊边忘的机器人，你提供给它的上文信息越多，
     "特产":{ "ask":"请问 {where} 景点有什么特产？", "memory_deep":5, "temperature":0},
     "翻译":{"prefix":[{"ask":"我希望你同时扮演中文翻译、拼写纠正和改进者角色。我会以任何语言与你交谈，你会检测语言，翻译它，并用更为优美、高雅的高级中文词汇和句子来回答我的文本，保持意义相同，但使它们更具文学性，请只回复更正和改进，不要写解释。","answer":"好的"}, {"ask":"istanbulu cok seviyom burada olmak cok guzel","answer":"我非常喜欢伊斯坦布尔，在这里很愉快。"}],"ask":"","temperature":1.2, "pre_clear":true}
   },
-  "hint_magics": ["介绍","特产","翻译"]
+  "hint_magics": ["介绍","特产","翻译"],
   "state_desc": "({where})"
 }
 ```
 
-上述 prompts 中 "翻译" 一项中定义 prefix 是前置的若干问答，同时我们还指定 temperature 为 `1.2`，让 AI 回答更有创意，还置 pre_clear 为 true，表示此前的历史聊天记录将被忽略，即，先清历史问答，然后开始本次聊天。
+上述 prompts 中 "翻译" 一项中定义 prefix 是前置的若干问答，同时我们还指定 temperature 为 `1.2`，让 AI 回答更有创意，设置 pre_clear 为 true，表示此前的历史聊天记录将被忽略，相当于先清历史问答，然后开始本次聊天。
 
 &nbsp;
