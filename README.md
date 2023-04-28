@@ -1,9 +1,11 @@
-# tmy-rule-engine
-Rule engine for GPT chat in WeChat
+# wx-tmy-prompt
+Room and prompt definition for chatGPT in WeChat.
 
 [跳至 GitHub Pages 主页了解详情](https://www.fn-share.com/github_bridge?path=index.html)
 
 &nbsp;
+
+### 关于本项目
 
 本项目定义 "旅游服务" 聊天室，该聊天室适合在微信公众号 "填密语" 中使用。聊天室定义如下：
 
@@ -39,3 +41,11 @@ Rule engine for GPT chat in WeChat
   "state_desc": "({where})"
 }
 </code></pre>
+
+&nbsp;
+
+### 您还可以 fork 本项目自定义聊天室规格
+
+在 github 网站您可以将本项目 fork 到自己名下，通过配置 Github Pages 实现静态页托管，您将收获自主决定的聊天室定义。
+
+您也可以在一个项目定义多间聊天室，详情请参考 [填密语规则引擎使用手册](https://fnw-tools.github.io/tmy-rule-engine/index.html) 。
