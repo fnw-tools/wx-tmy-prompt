@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="res/favicon.ico">
+<link href="res/bootstrap.min.css" rel="stylesheet">
+<title>ChatRoom Definition</title>
+</head>
+
+<body>
+
+<div class="modal" tabindex="-1" id="msgbox-modal">
+  <div class="modal-dialog" style="max-width:75%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+      </div>
+      <div class="modal-body text-break"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary shadow-none" data-bs-dismiss="modal" id="btn-msgbox-ok">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container p-2">
+
+<div class="row">
+  <div class="mt-4 fs-5">
+    <p>这里提供适用于微信的 chatGPT 聊天室，相关规格请参考：<a target='_blank' href='https://github.com/fnw-tools/wx-tmy-prompt'>fnw-tools/wx-tmy-prompt</a> 。</p>
+    <p>如何添加聊天室？先进入 “填密语” 微信公众号中的 GPT 房间，对下面指定聊天室的二维码拍照，上传照片即可。</p>
+  </div>
+  <div class="d-none" id="md-txt-view"></div>
+</div>
+
+<div class="row" id="room-list">
+</div>
+
+</div>
+
+<style>
+.room-qr img {
+  width: 100%;
+}
+</style>
+
+<script src="res/jquery-3.6.0.slim.min.js"></script>
+<script src="res/bootstrap.min.js"></script>
+<script src="res/qrcode.min.js"></script>
+<script src="res/markdown-it.min.js"></script>
+
+<script>
+const _markdown = markdownit({html:true,linkify:false});
+const _msgboxModal = new bootstrap.Modal($('#msgbox-modal'),{backdrop:'static',keyboard:true});
+
+const _crc_table = new Uint32Array(256);
+
+for (let i = 0; i < 256; i++) {
+  let c = i;
+  for (let k = 0; k < 8; k++) { 
+    c = (c & 1)? (c >>> 1) ^ 0xedb88320: c >>> 1;
+  }
+  _crc_table[i] = c;
+}
+
+// crc32((new TextEncoder()).encode('Hello')) >>> 0
+function crc32(bytes) {
+  let crc = -1;
+  for (let i=0; i < bytes.length; i++) {
+    crc = (crc >>> 8) ^ _crc_table[(crc ^ bytes[i]) & 0xFF];
+  }
+  return crc ^ -1;
+}
+
+function wait__(promise_obj, wait) {
+  var abort_fn = null;
+  let abortable_promise = Promise.race([ promise_obj,
+    new Promise( function(resolve, reject) {
+      abort_fn = function() { reject(new Error('TIMEOUT')) };
+    })
+  ]);
+  
+  setTimeout(()=>abort_fn(),wait);
+  return abortable_promise;
+}
+
+function getMdFile(url, retry_num, callback) {
+  wait__(fetch(url),10000).then( res => {
+    if (res.status == 200) return res.text();
+    if (callback) callback(null);
+    return null;
+  }, e => {  // e.message such like 'TIMEOUT'
+    if (retry_num)
+      getMdFileList(retry_num-1,callback);
+    else {
+      if (callback) callback(null);
+    }
+    return null;
+  }).then( data => {
+    if (data === null) return;
+    if (callback) callback(data);
+  });
+}
+
+function showRoomDef(event) {
+  if (event.target.nodeName != 'A') return;
+  event.stopPropagation();
+  event.preventDefault();
+  
+  let s = JSON.stringify(event.target.json,null,2);
+  $('#msgbox-modal .modal-title').html('聊天室定义');
+  $('#msgbox-modal .modal-body').html('<pre><code>' + s + '</code></pre>');
+  _msgboxModal.show();
+}
+
+function setupQrCode() {
+  let url = $('<a href="README.md"></a>')[0].href;
+  let qrNodes = $('#room-list .room-qr');
+  qrNodes.each( (idx,node) => {
+    let qr = new QRCode(node);
+    qr.makeCode(url + '#' + node.getAttribute('crc'));
+  });
+}
+
+$( () => {
+  getMdFile('README.md',2, data => {  // will try 2 times more if failed
+    if (!data) return;
+    
+    let roomList = $('#room-list');
+    let viewer = $('#md-txt-view');
+    viewer.html(_markdown.render(data));
+    
+    viewer.find('.tmy-room').each( (idx,node) => {
+      try {
+        let s = node.innerText;
+        let crc = crc32((new TextEncoder()).encode(s)) >>> 0;
+        let room = JSON.parse(s);
+        
+        let newNode = $(
+`<div class="card m-3" style="width:22rem;"><div class="card-body">
+  <h5 class="card-title">${room.room_name}</h5>
+  <p class="card-text">${room.room_desc} <a class="show-json" onclick="showRoomDef(event)" href="javascript:void(0)">查看定义</a></p>
+  <div class="room-qr"></div>
+</div></div>` );
+        roomList.append(newNode);
+        newNode.find('.show-json')[0].json = room;
+        newNode.find('.room-qr').attr('crc',crc+'');
+      }
+      catch(e) {
+        console.log(e);
+      }
+    });
+    
+    setupQrCode();
+    viewer.html('');
+  });
+});
+</script>
+
+</body>
+</html>
