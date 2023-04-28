@@ -3,9 +3,9 @@ Rule engine for GPT chat in WeChat
 
 [跳至 GitHub Pages 主页了解详情](https://www.fn-share.com/github_bridge?path=index.html)
 
-本项目定义 "旅游服务" 聊天室，该聊天室适合在微信公众号 "填密语" 中使用。
+&nbsp;
 
-聊天室定义如下：
+本项目定义 "旅游服务" 聊天室，该聊天室适合在微信公众号 "填密语" 中使用。聊天室定义如下：
 
 <pre><code class="tmy-room">
 {
