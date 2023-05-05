@@ -54,7 +54,7 @@ Room and prompt definition for chatGPT in WeChat.
 {
   "room_ver": 1,
   "room_name": "中英互译",
-  "room_desc": "输中文译英文，输英文译中文",
+  "room_desc": "输中文译英文，输英文译中文。",
   
   "system_role": "你是一个友善的翻译员",
   "context_size": 0,
