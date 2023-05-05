@@ -148,6 +148,8 @@ $( () => {
         newNode.find('.room-qr').attr('crc',crc+'');
       }
       catch(e) {
+        if (e instanceof SyntaxError)
+          alert('Room definition error: ' + e.message);
         console.log(e);
       }
     });
