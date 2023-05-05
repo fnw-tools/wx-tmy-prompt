@@ -1,13 +1,15 @@
 # wx-tmy-prompt
 Room and prompt definition for chatGPT in WeChat.
 
-[跳至 GitHub Pages 主页了解详情](https://www.fn-share.com/github_bridge?path=index.html)
+[跳至 GitHub Pages 主页安装聊天室](https://www.fn-share.com/github_bridge?path=index.html)
 
 &nbsp;
 
 ### 关于本项目
 
-本项目定义 "旅游服务" 聊天室，该聊天室适合在微信公众号 "填密语" 中使用。聊天室定义如下：
+本项目定义 2 间 chatGPT 聊天室，这些聊天室适合在微信公众号 "填密语" 中使用。
+
+其中 "旅游服务" 聊天室定义如下：
 
 <pre><code class="tmy-room">
 {
@@ -42,10 +44,41 @@ Room and prompt definition for chatGPT in WeChat.
 }
 </code></pre>
 
+特别说明：以上聊天室定义不追求实用性，它用作样例，为配合 “TMY 规则引擎使用手册” 方便讲解而设置。
+
+&nbsp;
+
+其中 "中英互译" 聊天室定义如下：
+
+<pre><code class="tmy-room">
+{
+  "room_ver": 1,
+  "room_name": "中英互译",
+  "room_desc": "输中文译英文，输英文译中文",
+  
+  "system_role": "你是一个友善的翻译员",
+  "context_size": 0,
+  "temperature": 0,
+  "max_tokens": 600,
+  
+  "check_chinese": true,
+  "globals": {},
+  "magic_rules": {"*":["*"]},
+  "prompts": {
+    "*":{
+      "ask":"'请将如下文字翻译成英文：' if {IS_CN!r} else '请将如下文字翻译成中文：'",
+      "context_size":0, "temperature":0, "reset_context":true, "max_tokens":1000
+    }
+  },
+  "hint_magics": [],
+  "state_desc": ""
+}
+</code></pre>
+
 &nbsp;
 
 ### 您还可以 fork 本项目自定聊天室规格
 
 在 github 网站将本项目 fork 到自己名下，通过配置 Github Pages 实现静态页托管，您将收获自主配置的聊天室定义。
 
-您也可以在一个 repo 中定义多间聊天室，详情请参考 [填密语规则引擎使用手册](https://fnw-tools.github.io/tmy-rule-engine/index.html) 。
+您也可以在一个 repo 中定义多间聊天室，详情请参考 [TMY 规则引擎使用手册](https://fnw-tools.github.io/tmy-rule-engine/index.html) 。
