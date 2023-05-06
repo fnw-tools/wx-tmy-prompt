@@ -1,7 +1,7 @@
 # wx-tmy-prompt
 Room and prompt definition for chatGPT in WeChat.
 
-[跳至 GitHub Pages 静态托管主页安装聊天室](https://www.fn-share.com/github_bridge?path=index.html)
+[跳至 GitHub Pages 静态托管页安装聊天室](https://www.fn-share.com/github_bridge?path=index.html)
 
 &nbsp;
 
@@ -26,7 +26,8 @@ Room and prompt definition for chatGPT in WeChat.
   "magic_rules": {
     "介绍":[["景点名","set","{where}"], "*"],
     "特产":["*"],
-    "翻译":["*"]
+    "翻译":["*"],
+    "*":["*"]
   },
   "prompts": {
     "介绍":{ "ask":"我提供一个景点名称，你将介绍该景点的特色、人文背景、历史典故，简短些。请介绍景点：{where} 。", "context_size":3, "temperature":0 },
@@ -37,6 +38,10 @@ Room and prompt definition for chatGPT in WeChat.
       "ask":"",
       "max_tokens":1000, "temperature":1.2,
       "context_size":0, "reset_context":true
+    },
+    "*":{
+      "ask":"",
+      "context_size":5, "temperature":0, "max_tokens":600
     }
   },
   "hint_magics": ["介绍","特产","翻译"],
