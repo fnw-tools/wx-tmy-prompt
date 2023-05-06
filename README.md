@@ -1,7 +1,7 @@
 # wx-tmy-prompt
 Room and prompt definition for chatGPT in WeChat.
 
-[跳至 GitHub Pages 主页安装聊天室](https://www.fn-share.com/github_bridge?path=index.html)
+[跳至 GitHub Pages 静态托管主页安装聊天室](https://www.fn-share.com/github_bridge?path=index.html)
 
 &nbsp;
 
