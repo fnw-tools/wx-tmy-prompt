@@ -24,7 +24,7 @@ Room and prompt definition for chatGPT in WeChat.
   
   "globals": {"where":"北京故宫"},
   "magic_rules": {
-    "介绍":[["景点名","set","{where}"], "*"],
+    "介绍":[["景点名","replace","{where}"], "*"],
     "特产":["*"],
     "翻译":["*"],
     "*":["*"]
