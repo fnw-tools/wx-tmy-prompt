@@ -32,6 +32,10 @@
     <p>如何添加聊天室？先进入 “填密语” 微信公众号中的 GPT 房间，对下面指定聊天室的二维码拍照（一次只含一个二维码），上传照片即可。</p>
   </div>
   <div class="d-none" id="md-txt-view"></div>
+  <div class="d-none mt-4 fs-5" id="last-room_dbg">
+    <p>如下指令专用于调试目的的聊天室导入，请拷贝指令文本并在公众号 GPT 房间中提交。注意，该指令只针对上面列出的最后一个聊天室。</p>
+    <p><input type="text" style="width:30rem" readonly></p>
+  </div>
 </div>
 
 <div class="row" id="room-list">
@@ -131,6 +135,7 @@ $( () => {
     let viewer = $('#md-txt-view');
     viewer.html(_markdown.render(data));
     
+    let lastRoom = null;
     viewer.find('.tmy-room').each( (idx,node) => {
       try {
         let s = node.innerText;
@@ -146,6 +151,8 @@ $( () => {
         roomList.append(newNode);
         newNode.find('.show-json')[0].json = room;
         newNode.find('.room-qr').attr('crc',crc+'');
+        
+        lastRoom = newNode;
       }
       catch(e) {
         if (e instanceof SyntaxError)
@@ -153,6 +160,13 @@ $( () => {
         console.log(e);
       }
     });
+    
+    if (lastRoom) {
+      let url = $('<a href="README.md"></a>')[0].href;
+      let roomDbg = $('#last-room_dbg');
+      roomDbg.find('input').val('ADD_ROOM ' + url);
+      roomDbg.removeClass('d-none');
+    }
     
     setupQrCode();
     viewer.html('');
