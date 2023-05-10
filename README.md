@@ -82,8 +82,8 @@ Room and prompt definition for chatGPT in WeChat.
 
 &nbsp;
 
-### 您还可以 fork 本项目自定聊天室规格
+### 您还可以 fork 本项目实现聊天室自定义
 
 在 github 网站将本项目 fork 到自己名下，通过配置 Github Pages 实现静态页托管，您将收获自主配置的聊天室定义。
 
-您也可以在一个 repo 中定义多间聊天室，详情请参考 [TMY 规则引擎使用手册](https://fnw-tools.github.io/tmy-rule-engine/index.html) 。
+您还可以在一个 repo 中定义多间聊天室，详情请参考 [TMY 规则引擎使用手册](https://fnw-tools.github.io/tmy-rule-engine/index.html) 。
