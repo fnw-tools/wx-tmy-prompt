@@ -124,7 +124,7 @@ function setupQrCode() {
   let qrNodes = $('#room-list .room-qr');
   qrNodes.each( (idx,node) => {
     let qr = new QRCode(node);
-    qr.makeCode(url + '#' + node.getAttribute('crc'));
+    qr.makeCode(url + '#crc=' + node.getAttribute('crc'));
   });
 }
 
