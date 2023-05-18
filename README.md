@@ -30,17 +30,19 @@ Room and prompt definition for chatGPT in WeChat.
     "*":["*"]
   },
   "prompts": {
-    "介绍":{ "ask":"我提供一个景点名称，你将介绍该景点的特色、人文背景、历史典故，简短些。请介绍景点：{where} 。", "context_size":3, "temperature":0 },
-    "特产":{ "ask":"请问 {where} 景点有什么特产？", "context_size":5, "temperature":0},
+    "介绍":{ "ask":"我提供一个景点名称，你将介绍该景点的特色、人文背景、历史典故，简短些。请介绍景点：{where} 。", 
+      "append_input":true, "context_size":3, "temperature":0 },
+    "特产":{ "ask":"请问 {where} 景点有什么特产？", 
+      "append_input":true, "context_size":5, "temperature":0 },
     "翻译":{ "prefix": [
       {"ask":"我希望你同时扮演中文翻译、拼写纠正和改进者角色。我会以任何语言与你交谈，你会检测语言，翻译它，并用更为优美、高雅的高级中文词汇和句子来回答我的文本，保持意义相同，但使它们更具文学性，请只回复更正和改进，不要写解释。","answer":"好的"}, 
       {"ask":"istanbulu cok seviyom burada olmak cok guzel","answer":"我非常喜欢伊斯坦布尔，在这里很愉快。"}],
-      "ask":"",
+      "ask":"", "append_input":true,
       "max_tokens":1000, "temperature":1.2,
       "context_size":0, "reset_context":true
     },
     "*":{
-      "ask":"",
+      "ask":"", "append_input":true,
       "context_size":5, "temperature":0, "max_tokens":600
     }
   },
@@ -72,6 +74,7 @@ Room and prompt definition for chatGPT in WeChat.
   "prompts": {
     "*":{
       "ask":"'请将如下文字翻译成英文：' if {IS_CN!r} else '请将如下文字翻译成中文：'",
+      "append_input":true,
       "context_size":0, "temperature":0, "reset_context":true, "max_tokens":1000
     }
   },
