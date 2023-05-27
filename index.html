@@ -144,7 +144,7 @@ $( () => {
         let room = JSON.parse(s);
         
         let newNode = $(
-`<div class="card m-4" style="width:22rem;"><div class="card-body">
+`<div class="card m-3" style="width:22rem; max-width:calc(100% - 2rem);"><div class="card-body">
   <h5 class="card-title">${room.room_name}</h5>
   <p class="card-text">${room.room_desc} <a class="show-json" onclick="showRoomDef(event)" href="javascript:void(0)">查看定义</a></p>
   <div class="room-qr"></div>
